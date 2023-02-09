@@ -1,9 +1,9 @@
 "use strict";
 console.log("Rock Paper Scissors");
 function getComputerChoice() {
-    let randomNumber = Math.floor(Math.random()*30)+1;
+    let randomNumber = Math.floor(Math.random()*3)+1;
     let computerChoice = randomNumber == 1? "rock" : randomNumber == 2 ? "paper" : "scissors";
-    return "Random: Rock Paper Scissors";
+    return computerChoice;
 }
 
 function playOneRound(playerSelection, computerSelection) {
