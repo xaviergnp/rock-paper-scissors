@@ -21,11 +21,13 @@ function game() {
     // 5 rounds
     for (let x=0; x<5; x++) {
         let round = `Rock Paper Scissors: Round ${x+1}`;
-        alert(round);
         console.log(round);
+        alert(round);
 
         let playerSelection = prompt("Choose your hand: Rock | Paper | Scissors").toLowerCase();
         let computerSelection = getComputerChoice();
-        playOneRound(playerSelection, computerSelection);    
+        let result = playOneRound(playerSelection, computerSelection);    
+        console.log(result);
+        alert(result);
     }
 }
