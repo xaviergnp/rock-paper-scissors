@@ -7,7 +7,14 @@ function getComputerChoice() {
 }
 
 function playOneRound(playerSelection, computerSelection) {
-    return "You Lose! Paper beats Rock";
+    if (String(playerSelection).length == String(computerSelection).length) {
+        return `It's a draw! ${playerSelection} v ${computerSelection}`;
+    } else if (String(playerSelection).length > String(computerSelection).length || 
+    (String(playerSelection).length == 4 && String(computerSelection).length == 8 )) {
+        return `You win! ${playerSelection} beats ${computerSelection}`;
+    } else {
+        return `You lose! ${playerSelection} is beaten by ${computerSelection}`;
+    }
 }
 
 function game() {
@@ -17,7 +24,7 @@ function game() {
         alert(round);
         console.log(round);
 
-        let playerSelection = prompt("Choose your hand: Rock | Paper | Scissors");
+        let playerSelection = prompt("Choose your hand: Rock | Paper | Scissors").toLowerCase();
         let computerSelection = getComputerChoice();
         playOneRound(playerSelection, computerSelection);    
     }
