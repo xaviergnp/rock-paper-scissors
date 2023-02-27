@@ -18,24 +18,15 @@ function playOneRound(playerSelection, computerSelection) {
     }
 }
 
-const playerSelection = document.querySelectorAll(".selection > button");
-playerSelection.forEach(select => {
-    select.addEventListener("click", e => {
-        console.log(e.target.textContent);
-    });
-});
-
-// const sample = document.querySelector(".selection");
-// sample.addEventListener("click", e => {
-//     console.log("Hi");
-// });
-
-
 function getPlayerSelection() {
-    
-    return "Done";
-
-
+    const playerSelection = document.querySelectorAll(".selection > button");
+    let selectionMessage = document.querySelector(".message");
+    playerSelection.forEach(select => {
+        select.addEventListener("click", e => {
+            selectionMessage.textContent = `Choose your hand: ${e.target.textContent}`;
+            return e.target.textContent;
+        });
+    });
 }
 
 function game() {
@@ -48,11 +39,13 @@ function game() {
 
         // let playerSelection = prompt("Choose your hand: Rock | Paper | Scissors");
         // let playerSelection = document.querySelector
-        getPlayerSelection();
-        let computerSelection = getComputerChoice();
-        // let result = playOneRound(playerSelection, computerSelection);    
-        // console.log(result);
-        // alert(result);
+        let playerSelection = getPlayerSelection();
+        if (playerSelection) {
+            let computerSelection = getComputerChoice();
+            let result = playOneRound(playerSelection, computerSelection);    
+            console.log(result);
+            alert(result)
+        };
     // }
 }
 
