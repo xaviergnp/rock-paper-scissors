@@ -1,5 +1,4 @@
 "use strict";
-// console.log("Rock Paper Scissors Game");
 
 function getComputerChoice() {
     let randomNumber = Math.floor(Math.random()*3)+1;
@@ -25,24 +24,9 @@ function playOneRound(playerSelection, computerSelection) {
     
 }
 
-function displayWinner() {
-    const gameResult = document.getElementById("game-result");
-    
-    if(playerScore == 5 && aiScore < 5) {
-        gameResult.textContent = "Result: YOU WON!!!";
-
-    } else if (aiScore == 5 && playerScore < 5) {
-        gameResult.textContent = "Result: YOU LOST!!! AI beat you";
-    } else if (playerScore == 5 && aiScore == 5) {
-        gameResult.textContent = "Result: It's a DRAW!";
-    }
-}
-
 function playGame() {
     const playerSelection = document.querySelectorAll(".selection > button");
     let playerSelectedHand;
-    const gameScore = document.getElementById("game-score");
-    const resultList = document.querySelector(".result-list");
 
     playerSelection.forEach(select => {
         select.addEventListener("click", e => {
@@ -55,7 +39,7 @@ function playGame() {
             const resultHolder = document.createElement("p");
             resultList.appendChild(resultHolder);
 
-            resultHolder.textContent = `R${roundCount}: ${playOneRound(playerSelectedHand, computerSelection)}`;
+            resultHolder.textContent = `Round ${roundCount}: ${playOneRound(playerSelectedHand, computerSelection)}`;
            
             gameScore.textContent = `Score (Player v AI): ${playerScore}-${aiScore} `;
             
@@ -64,16 +48,36 @@ function playGame() {
     });
 }
 
+function displayWinner() {
+    
+    if(playerScore == 5 && aiScore < 5) {
+        gameResult.textContent = "Result: YOU WON!!!";
+
+    } else if (aiScore == 5 && playerScore < 5) {
+        gameResult.textContent = "Result: YOU LOST!!! AI beat you";
+    } else if (playerScore == 5 && aiScore == 5) {
+        gameResult.textContent = "Result: It's a DRAW!";
+    }
+}
+
 function setNewGame() {
+    
+    gameScore.textContent = "Score (Player v AI): 0-0";
+    gameResult.textContent = "Result:";
     roundCount = 0;
     playerScore = 0;
     aiScore = 0;
+    resultList.replaceChildren();
     
 }
 
 let roundCount = 0;
 let playerScore = 0;
 let aiScore = 0;
+
+const gameScore = document.getElementById("game-score");
+const gameResult = document.getElementById("game-result");
+const resultList = document.querySelector(".result-list");
 
 playGame();
 
