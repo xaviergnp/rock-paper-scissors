@@ -20,33 +20,29 @@ function playOneRound(playerSelection, computerSelection) {
 
 function getPlayerSelection() {
     const playerSelection = document.querySelectorAll(".selection > button");
-    let selectionMessage = document.querySelector(".message");
+    // let selectionMessage = document.querySelector(".message");
+    let playerSelectedHand;
     playerSelection.forEach(select => {
         select.addEventListener("click", e => {
-            selectionMessage.textContent = `Choose your hand: ${e.target.textContent}`;
-            return e.target.textContent;
+            playerSelectedHand = e.target.textContent;
+            // selectionMessage.textContent = `Choose your hand: ${e.target.textContent}`;
+
+            let computerSelection = getComputerChoice();
+            let result = playOneRound(playerSelectedHand, computerSelection);    
+            console.log(result);
+            alert(result);
         });
     });
 }
 
 function game() {
-    // 5 rounds
-    // for (let x=0; x<5; x++) {
         let x = 1;
         let round = `Rock Paper Scissors - Player vs AI - Round ${x}`;
         console.log(round);
         alert(round);
 
-        // let playerSelection = prompt("Choose your hand: Rock | Paper | Scissors");
-        // let playerSelection = document.querySelector
-        let playerSelection = getPlayerSelection();
-        if (playerSelection) {
-            let computerSelection = getComputerChoice();
-            let result = playOneRound(playerSelection, computerSelection);    
-            console.log(result);
-            alert(result)
-        };
-    // }
+        getPlayerSelection();
+
 }
 
 game();
