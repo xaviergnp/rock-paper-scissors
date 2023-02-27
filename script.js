@@ -20,7 +20,7 @@ function playOneRound(playerSelection, computerSelection) {
 
 function game() {
     // 5 rounds
-    for (let x=0; x<5; x++) {
+    // for (let x=0; x<5; x++) {
         let round = `Rock Paper Scissors - Player vs AI - Round ${x+1}`;
         console.log(round);
         alert(round);
@@ -30,7 +30,7 @@ function game() {
         let result = playOneRound(playerSelection, computerSelection);    
         console.log(result);
         alert(result);
-    }
+    // }
 }
 
 game();
