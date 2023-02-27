@@ -30,20 +30,26 @@ function playGame() {
 
     playerSelection.forEach(select => {
         select.addEventListener("click", e => {
-            roundCount++;
+            if (!gameEnd){
+                roundCount++;
             
-            playerSelectedHand = e.target.textContent;
+                playerSelectedHand = e.target.textContent;
 
-            const computerSelection = getComputerChoice();
+                const computerSelection = getComputerChoice();
 
-            const resultHolder = document.createElement("p");
-            resultList.appendChild(resultHolder);
+                const resultHolder = document.createElement("p");
+                resultList.appendChild(resultHolder);
 
-            resultHolder.textContent = `Round ${roundCount}: ${playOneRound(playerSelectedHand, computerSelection)}`;
-           
-            gameScore.textContent = `Score (Player v AI): ${playerScore}-${aiScore} `;
+                resultHolder.textContent = `Round ${roundCount}: ${playOneRound(playerSelectedHand, computerSelection)}`;
             
-            displayWinner();
+                gameScore.textContent = `Score (Player v AI): ${playerScore}-${aiScore} `;
+
+                displayWinner();
+            } else {
+                
+                newGameMessage.textContent = "Click New Game to start another!"
+            }
+
         });
     });
 }
@@ -52,32 +58,53 @@ function displayWinner() {
     
     if(playerScore == 5 && aiScore < 5) {
         gameResult.textContent = "Result: YOU WON!!!";
+        totalPlayerWin++;
+        overallPlayerWin.textContent = totalPlayerWin;
+        gameEnd = true;
 
     } else if (aiScore == 5 && playerScore < 5) {
         gameResult.textContent = "Result: YOU LOST!!! AI beat you";
+        totalAiWin++;
+        overallAiWin.textContent = totalAiWin;
+        gameEnd = true;
     } else if (playerScore == 5 && aiScore == 5) {
         gameResult.textContent = "Result: It's a DRAW!";
+        totalPlayerWin++;
+        totalAiWin++;
+        overallPlayerWin.textContent = totalPlayerWin;
+        overallAiWin.textContent = totalAiWin;
+        gameEnd = true;
     }
 }
 
 function setNewGame() {
-    
+    newGameMessage.textContent = "Choose your hand:";
     gameScore.textContent = "Score (Player v AI): 0-0";
     gameResult.textContent = "Result:";
+
     roundCount = 0;
     playerScore = 0;
     aiScore = 0;
+    gameEnd = false;
+
     resultList.replaceChildren();
+    
     
 }
 
 let roundCount = 0;
 let playerScore = 0;
 let aiScore = 0;
+let gameEnd = false;
+let totalPlayerWin = 0;
+let totalAiWin = 0;
 
+const overallPlayerWin = document.getElementById("player-overall-win");
+const overallAiWin = document.getElementById("ai-overall-win");
 const gameScore = document.getElementById("game-score");
 const gameResult = document.getElementById("game-result");
 const resultList = document.querySelector(".result-list");
+const newGameMessage = document.querySelector(".message");
 
 playGame();
 
