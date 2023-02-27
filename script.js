@@ -6,45 +6,61 @@ function getComputerChoice() {
     return computerChoice;
 }
 
-function playOneRound(playerSelection, computerSelection, playerScore, aiScore) {
+function playOneRound(playerSelection, computerSelection, currentPlayerScore, currentAiScore) {
     let p1 = String(playerSelection).toUpperCase();
     let comp1 = String(computerSelection).toUpperCase();
     // Your Hand: ${p1}\nAI's Hand: ${comp1}\n\n
+   
     if (p1 == comp1) {
-        playerScore++;
-        aiScore++;
-        return `It's a draw! ${p1} v ${comp1} ${playerScore} - ${aiScore}`;
+        currentPlayerScore++;
+        currentAiScore++;
+        console.log(currentPlayerScore);
+        return {"message":`It's a draw! ${p1} v ${comp1} ${currentPlayerScore}  ${currentAiScore}`,
+                currentPlayerScore,
+                currentAiScore};
     } else if ((p1 == "SCISSORS" && comp1 == "PAPER") || (p1 == "PAPER" && comp1 == "ROCK") || (p1 == "ROCK" && comp1 == "SCISSORS")) {
-        playerScore++;
-        return `You WIN! ${p1} beats ${comp1} ${playerScore} - ${aiScore}`;
+        currentPlayerScore++;
+        console.log(currentPlayerScore);
+        return {"message":`You WIN! ${p1} beats ${comp1} ${currentPlayerScore}  ${currentAiScore}`,
+                currentPlayerScore,
+                currentAiScore};
     } else {
-        aiScore++;
-        return `You LOSE! ${p1} is beaten by ${comp1} ${playerScore} - ${aiScore}`;
+        currentAiScore++;
+        console.log(currentPlayerScore);
+        return {"message":`You LOSE! ${p1} is beaten by ${comp1} ${currentPlayerScore}  ${currentAiScore}`,
+                currentPlayerScore,
+                currentAiScore};
     }
+    
 }
 
 function getPlayerSelection(roundCount, playerScore, aiScore) {
     const playerSelection = document.querySelectorAll(".selection > button");
-    // let selectionMessage = document.querySelector(".message");
     let playerSelectedHand;
     let gameScore = document.getElementById("game-score");
     let resultList = document.querySelector(".result-list");
+    let currentPlayerScore = 0;
+    let currentAiScore = 0;
+
     playerSelection.forEach(select => {
         select.addEventListener("click", e => {
             roundCount++;
             
             playerSelectedHand = e.target.textContent;
-            // selectionMessage.textContent = `Choose your hand: ${e.target.textContent}`;
 
             const computerSelection = getComputerChoice();
 
             const resultHolder = document.createElement("p");
             resultList.appendChild(resultHolder);
-            resultHolder.textContent = `R${roundCount}: ${playOneRound(playerSelectedHand, computerSelection, playerScore, aiScore)}`;
+
+            let gamePlayOneRound = playOneRound(playerSelectedHand, computerSelection, currentPlayerScore, currentAiScore);
+            resultHolder.textContent = `R${roundCount}: ${gamePlayOneRound.message}`;
+            console.log("sc: "+currentPlayerScore);
+
+            playerScore += gamePlayOneRound.currentPlayerScore;
+            aiScore += gamePlayOneRound.currentAiScore;
             gameScore.textContent = `Score (Player v AI): ${playerScore}-${aiScore} `;
-            // let result = playOneRound(playerSelectedHand, computerSelection);    
-            // console.log(result);
-            // alert(result);
+
             
         });
     });
@@ -54,11 +70,9 @@ function game() {
         let roundCount = 0;
         let playerScore = 0;
         let aiScore = 0;
-        // let round = `Rock Paper Scissors - Player vs AI - Round ${x}`;
-        // console.log(round);
-        // alert(round);
 
         getPlayerSelection(roundCount, playerScore, aiScore);
+
 }
 
 game();
