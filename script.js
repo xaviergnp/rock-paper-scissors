@@ -19,7 +19,7 @@ function playOneRound(playerSelection, computerSelection) {
     }
 }
 
-function getPlayerSelection() {
+function getPlayerSelection(roundCount) {
     const playerSelection = document.querySelectorAll(".selection > button");
     // let selectionMessage = document.querySelector(".message");
     let playerSelectedHand;
@@ -33,21 +33,22 @@ function getPlayerSelection() {
 
             const resultHolder = document.createElement("p");
             resultList.appendChild(resultHolder);
-            resultHolder.textContent = playOneRound(playerSelectedHand, computerSelection);
+            resultHolder.textContent = `R${roundCount}: ${playOneRound(playerSelectedHand, computerSelection)}`;
             // let result = playOneRound(playerSelectedHand, computerSelection);    
             // console.log(result);
             // alert(result);
+            roundCount++;
         });
     });
 }
 
 function game() {
-        // let x = 1;
+        let roundCount = 1;
         // let round = `Rock Paper Scissors - Player vs AI - Round ${x}`;
         // console.log(round);
         // alert(round);
 
-        getPlayerSelection();
+        getPlayerSelection(roundCount);
 }
 
 game();
