@@ -14,24 +14,34 @@ function playOneRound(playerSelection, computerSelection, currentPlayerScore, cu
     if (p1 == comp1) {
         currentPlayerScore++;
         currentAiScore++;
-        console.log(currentPlayerScore);
-        return {"message":`It's a draw! ${p1} v ${comp1} ${currentPlayerScore}  ${currentAiScore}`,
+        return {"message":`It's a draw! ${p1} v ${comp1}`,
                 currentPlayerScore,
                 currentAiScore};
     } else if ((p1 == "SCISSORS" && comp1 == "PAPER") || (p1 == "PAPER" && comp1 == "ROCK") || (p1 == "ROCK" && comp1 == "SCISSORS")) {
         currentPlayerScore++;
-        console.log(currentPlayerScore);
-        return {"message":`You WIN! ${p1} beats ${comp1} ${currentPlayerScore}  ${currentAiScore}`,
+        return {"message":`You WIN! ${p1} beats ${comp1}`,
                 currentPlayerScore,
                 currentAiScore};
     } else {
         currentAiScore++;
-        console.log(currentPlayerScore);
-        return {"message":`You LOSE! ${p1} is beaten by ${comp1} ${currentPlayerScore}  ${currentAiScore}`,
+        return {"message":`You LOSE! ${p1} is beaten by ${comp1}`,
                 currentPlayerScore,
                 currentAiScore};
     }
     
+}
+
+function displayWinner(playerScore, aiScore) {
+    let gameResult = document.getElementById("game-result");
+    
+    if(playerScore == 5 && aiScore < 5) {
+        gameResult.textContent = "Result: YOU WON!!!";
+
+    } else if (aiScore == 5 && playerScore < 5) {
+        gameResult.textContent = "Result: YOU LOST!!! AI beat you";
+    } else if (playerScore == 5 && aiScore == 5) {
+        gameResult.textContent = "Result: It's a DRAW!";
+    }
 }
 
 function getPlayerSelection(roundCount, playerScore, aiScore) {
@@ -55,16 +65,17 @@ function getPlayerSelection(roundCount, playerScore, aiScore) {
 
             let gamePlayOneRound = playOneRound(playerSelectedHand, computerSelection, currentPlayerScore, currentAiScore);
             resultHolder.textContent = `R${roundCount}: ${gamePlayOneRound.message}`;
-            console.log("sc: "+currentPlayerScore);
 
             playerScore += gamePlayOneRound.currentPlayerScore;
             aiScore += gamePlayOneRound.currentAiScore;
             gameScore.textContent = `Score (Player v AI): ${playerScore}-${aiScore} `;
-
             
+            displayWinner(playerScore, aiScore);
         });
     });
 }
+
+
 
 function game() {
         let roundCount = 0;
@@ -72,7 +83,6 @@ function game() {
         let aiScore = 0;
 
         getPlayerSelection(roundCount, playerScore, aiScore);
-
 }
 
 game();
