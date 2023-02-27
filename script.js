@@ -18,18 +18,41 @@ function playOneRound(playerSelection, computerSelection) {
     }
 }
 
+const playerSelection = document.querySelectorAll(".selection > button");
+playerSelection.forEach(select => {
+    select.addEventListener("click", e => {
+        console.log(e.target.textContent);
+    });
+});
+
+// const sample = document.querySelector(".selection");
+// sample.addEventListener("click", e => {
+//     console.log("Hi");
+// });
+
+
+function getPlayerSelection() {
+    
+    return "Done";
+
+
+}
+
 function game() {
     // 5 rounds
     // for (let x=0; x<5; x++) {
-        let round = `Rock Paper Scissors - Player vs AI - Round ${x+1}`;
+        let x = 1;
+        let round = `Rock Paper Scissors - Player vs AI - Round ${x}`;
         console.log(round);
         alert(round);
 
-        let playerSelection = prompt("Choose your hand: Rock | Paper | Scissors");
+        // let playerSelection = prompt("Choose your hand: Rock | Paper | Scissors");
+        // let playerSelection = document.querySelector
+        getPlayerSelection();
         let computerSelection = getComputerChoice();
-        let result = playOneRound(playerSelection, computerSelection);    
-        console.log(result);
-        alert(result);
+        // let result = playOneRound(playerSelection, computerSelection);    
+        // console.log(result);
+        // alert(result);
     // }
 }
 
